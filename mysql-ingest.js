@@ -11,8 +11,8 @@ var files = fs.readdirSync("data/");
 console.log(files);
 files.forEach(file => {
     var data = fs.readFileSync("data/" + file, 'utf-8');
-    var parsed = parse(data, {columns:true}, function(err, rows){
-        console.log(results);
+    parse(data, {columns:true}, function(err, rows){
+        console.log(rows);
         var rowsHandled = 0; 
         rows.forEach(row => {
             var sql = `
@@ -27,6 +27,7 @@ files.forEach(file => {
                     ${row.sender_count}
                 )
             `;
+            console.log(sql);
             mysqlConn.query(sql, function() {
                 rowsHandled++;
                 if (rowsHandled === rows.length) {
