@@ -24,7 +24,7 @@ fs.writeFileSync(filename, "ds,room_id,canonical_alias,message_count,sender_coun
 
 db.all(selectSql, function(err, rows) {
     rows.forEach(row => {
-        var rowString = `${ds},'${row.room_id}','${row.canonical_alias}',${row.message_count},${row.sender_count}\n`;
+        var rowString = `${ds},"${row.room_id}","${row.canonical_alias}",${row.message_count},${row.sender_count}\n`;
         fs.appendFileSync(filename, rowString);
     });
 });

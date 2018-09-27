@@ -1,6 +1,6 @@
 var config = require('../project-health-github/config.json');
 var mysql = require('mysql');
-var mysqlConn = mysql.createConnection(config.mysqlLocal);
+var mysqlConn = mysql.createConnection(config.mysql);
 mysqlConn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
@@ -11,7 +11,7 @@ var files = fs.readdirSync("data/");
 console.log(files);
 files.forEach(file => {
     var data = fs.readFileSync("data/" + file, 'utf-8');
-    parse(data, {columns:true}, function(err, rows){
+    parse(data.replace(/\'/g, "\""), {columns:true}, function(err, rows){
         console.log(rows);
         var rowsHandled = 0; 
         rows.forEach(row => {
